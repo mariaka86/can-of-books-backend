@@ -19,18 +19,26 @@ await Book.create({
   available: true,
 })
 
+console.log('Added Twilight')
+
+
 await Book.create({
   title: 'The Book of Five Rings',
   description: 'An manual of technique and philosophy.',
   available: true,
 })
-
+console.log('Added The Book of Five Rings')
 
 await Book.create({
   title: 'Breathe',
   description: 'The Breathing Series is one girls story of unspeakable cruelty, life-changing love, and her precarious grasp of hope.',
   available: true, 
 })
+console.log('Added Breathe')
+
+
+console.log('Closing the DB');
+mongoose.disconnect();
 
 }
 
