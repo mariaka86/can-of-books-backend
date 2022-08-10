@@ -10,7 +10,7 @@ const { response } = require('express');
 const app = express();
 app.use(cors());
 
-const PORT = process.env.PORT || 3002;
+
 
 //connect to mongoose
 mongoose.connect(process.env.DB_URL);
@@ -22,12 +22,35 @@ db.once('open', function() {
   console.log('Mongoose is connected');
 });
 
+//define PORT validation env is working
+const PORT = process.env.PORT || 3002;
+
 
 app.get('/', (request, response) => {
   response.status(200).send('Hello!!!');
 });
 
 app.get('/books', getBooks);
+
+
+//add a server endpoint to handle delete requests to /book/:id
+app.delete('/books/:id', deleteBooks);
+
+
+//verify that you can access the book id from the request.params object
+async function deleteBooks(request, response, next){
+  let id= request.params.id
+  try{
+    //let us delete the books from the database
+    response.status(200).send('Book was Deleted');
+  } catch (error){
+    next(error);
+  }
+}
+
+
+
+
 
 async function getBooks(request, response, next){
   try {
