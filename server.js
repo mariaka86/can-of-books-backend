@@ -32,6 +32,8 @@ app.get('/books', getBooks);
 
 app.post('/books', postBooks);
 
+app.put('/books/:id', putBooks);
+
 async function getBooks(request, response, next) {
   try {
     //look at the documentation 
@@ -39,6 +41,18 @@ async function getBooks(request, response, next) {
     response.status(200).send(results);
   } catch (error) {
     next(error);
+  }
+}
+
+async function putBooks(req, res, nex){
+  try {
+    let id = req.params.id;
+    let data = req.body;
+
+    let updateBook = await Books.findByIdAndUpdate(id, data,{new: true, overwrite: true});
+    res.status(200).send(updateBook);
+  } catch (error) {
+    next(error); 
   }
 }
 
